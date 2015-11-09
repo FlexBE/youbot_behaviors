@@ -1,2 +1,2 @@
-# youbot_behaviors
-This repo contains all youbot-specific states and behaviors.
+# KUKA youBot states and behaviors
+This repo contains all youBot-specific states and behaviors.
