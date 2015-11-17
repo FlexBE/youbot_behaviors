@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="Simple Test">
+
+	<executable package_path="youbot_behavior_simple_test.simple_test_sm" class="SimpleTestSM" />
+	<tagstring>test</tagstring>
+	<author>Spyros Maniatopoulos</author>
+	<date>Tue Nov 17 2015</date>
+	<description>
+		Simple behavior for the purposes of testing FlexBE - youBot integration.
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

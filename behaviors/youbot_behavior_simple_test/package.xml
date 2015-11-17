@@ -1,0 +1,20 @@
+<package>
+  <name>youbot_behavior_simple_test</name>
+  <version>1.0.0</version>
+  <description>
+     Simple behavior for the purposes of testing FlexBE - youBot integration.
+  </description>
+  <maintainer email="schillinger@sim.tu-darmstadt.de">Philipp Schillinger</maintainer>
+  <license>BSD</license>
+
+  <url>http://ros.org/wiki/youbot_behavior_simple_test</url>
+  <author>Spyros Maniatopoulos</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>rospy</run_depend>
+  <run_depend>flexbe_core</run_depend>
+  <run_depend>flexbe_states</run_depend>
+  <run_depend>flexbe_argos_states</run_depend>
+
+</package>
