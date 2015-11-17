@@ -9,6 +9,7 @@
 import roslib; roslib.load_manifest('youbot_behavior_simple_test')
 from flexbe_core import Behavior, Autonomy, OperatableStateMachine, Logger
 from flexbe_states.log_state import LogState
+from youbot_flexbe_states.execute_arm_trajectory_state import ExecuteTrajectoryState
 # Additional imports can be added inside the following tags
 # [MANUAL_IMPORT]
 
@@ -35,29 +36,37 @@ class SimpleTestSM(Behavior):
 
 		# Additional initialization code can be added inside the following tags
 		# [MANUAL_INIT]
-		
-		# [/MANUAL_INIT]
+
+        # [/MANUAL_INIT]
 
 		# Behavior comments:
 
 
 
 	def create(self):
-		# x:503 y:80, x:130 y:452
+		front_pose_traj = [[0.0, 1.1094, -4.0187, 1.789, 0.0]]
+		traj_time = [10.0]
+		# x:533 y:190, x:183 y:340
 		_state_machine = OperatableStateMachine(outcomes=['finished', 'failed'])
 
 		# Additional creation code can be added inside the following tags
 		# [MANUAL_CREATE]
-		
-		# [/MANUAL_CREATE]
+
+        # [/MANUAL_CREATE]
 
 
 		with _state_machine:
-			# x:112 y:68
+			# x:122 y:78
 			OperatableStateMachine.add('Announce_Execution_Start',
 										LogState(text="Execution is starting!", severity=Logger.REPORT_INFO),
-										transitions={'done': 'finished'},
+										transitions={'done': 'Move_Arm_Forward'},
 										autonomy={'done': Autonomy.Low})
+
+			# x:136 y:178
+			OperatableStateMachine.add('Move_Arm_Forward',
+										ExecuteTrajectoryState(target_pose=front_pose_traj, time=traj_time),
+										transitions={'done': 'finished', 'failed': 'failed'},
+										autonomy={'done': Autonomy.Low, 'failed': Autonomy.Low})
 
 
 		return _state_machine
@@ -65,5 +74,5 @@ class SimpleTestSM(Behavior):
 
 	# Private functions can be added inside the following tags
 	# [MANUAL_FUNC]
-	
-	# [/MANUAL_FUNC]
+
+    # [/MANUAL_FUNC]
