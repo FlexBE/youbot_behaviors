@@ -3,8 +3,8 @@
 from flexbe_core import EventState, Logger
 from flexbe_core.proxy import ProxyActionClient
 
-from move_base_msgs import *
-from actionlib_msgs import GoalStatus
+from actionlib_msgs.msg import GoalStatus
+from move_base_msgs.msg import *
 from geometry_msgs.msg import Pose, Point, Quaternion
 from tf import transformations
 
@@ -16,9 +16,9 @@ Created on 11/19/2015
 
 class MoveBaseState(EventState):
     """
-    Navigates the robot to a desired position and orientation using move_base.
+    Navigates a robot to a desired position and orientation using move_base.
 
-    target_pose     float[]     Pose to navigate to [x,y,theta] in [m,m,deg]
+    -- target_pose     float[]     Pose to navigate to [x,y,theta] in [m,m,deg]
 
     <= arrived                  Navigation to target pose succeeded.
     <= failed                   Navigation to target pose failed.
@@ -49,12 +49,13 @@ class MoveBaseState(EventState):
             return 'failed'
 
         if self._client.has_result(self._action_topic):
-            result = self._client.get_result(self._action_topic)
-            if result.status == actionlib_msgs.SUCCEEDED:
+            status = self._client.get_state(self._action_topic)
+            if status == GoalStatus.SUCCEEDED:
                 self._arrived = True
                 return 'arrived'
-            else:
-                Logger.logwarn('Navigation failed (%d)' % result.status)
+            elif status in [GoalStatus.PREEMPTED, GoalStatus.REJECTED,
+                            GoalStatus.RECALLED, GoalStatus.ABORTED]:
+                Logger.logwarn('Navigation failed: %s' % str(status))
                 self._failed = True
                 return 'failed'
 
@@ -69,10 +70,13 @@ class MoveBaseState(EventState):
         goal = MoveBaseGoal()
 
         pt = Point(x = self._target_pose[0], y = self._target_pose[1])
-        qt = transformations.quaterion_from_euler(0, 0, self._target_pose[2])
+        qt = transformations.quaternion_from_euler(0, 0, self._target_pose[2])
 
         goal.target_pose.pose = Pose(position = pt,
                                      orientation = Quaternion(*qt))
+
+        goal.target_pose.header.frame_id = "odom"
+        # goal.target_pose.header.stamp.secs = 5.0
 
         # Send the action goal for execution
         try:
