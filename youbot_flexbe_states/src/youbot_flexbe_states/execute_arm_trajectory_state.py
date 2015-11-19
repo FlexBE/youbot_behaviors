@@ -20,12 +20,12 @@ class ExecuteTrajectoryState(EventState):
     """
     Executes a custom trajectory.
 
-    target_pose     float[][]   Trajectory to be executed, given as a
-                                list of time steps where each step
-                                contains a list of target joint values.
-    time            float[]     Relative time in seconds from starting
-                                the execution when the corresponding
-                                time step should be reached.
+    -- target_pose      float[][]   Trajectory to be executed, given as a
+                                    list of time steps where each step
+                                    contains a list of target joint values.
+    -- time            float[]      Relative time in seconds from starting
+                                    the execution when the corresponding
+                                    time step should be reached.
 
     <= done                     Trajectory was successfully executed.
     <= failed                   Failed to send or execute trajectory.
@@ -88,8 +88,6 @@ class ExecuteTrajectoryState(EventState):
             point.positions = self._target_pose[i]
             point.time_from_start = rospy.Duration.from_sec(self._time[i])
             goal.trajectory.points.append(point)
-
-        print "Trajectory", goal.trajectory
 
         # Send the action goal for execution
         try:
