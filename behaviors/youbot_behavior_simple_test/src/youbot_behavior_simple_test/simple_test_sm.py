@@ -10,6 +10,7 @@ import roslib; roslib.load_manifest('youbot_behavior_simple_test')
 from flexbe_core import Behavior, Autonomy, OperatableStateMachine, Logger
 from flexbe_states.log_state import LogState
 from youbot_flexbe_states.execute_arm_trajectory_state import ExecuteTrajectoryState
+from youbot_flexbe_states.move_base_state import MoveBaseState
 # Additional imports can be added inside the following tags
 # [MANUAL_IMPORT]
 
@@ -46,7 +47,9 @@ class SimpleTestSM(Behavior):
 	def create(self):
 		front_pose_traj = [[0.0, 1.1094, -4.0187, 1.789, 0.0]]
 		traj_time = [10.0]
-		# x:533 y:190, x:183 y:340
+		target_pose = [1.0, 1.0, 45.0] # [m, m, degrees]
+		origin_pose = [0.0, 0.0, 0.0]  # [m, m, degrees]
+		# x:582 y:424, x:458 y:265
 		_state_machine = OperatableStateMachine(outcomes=['finished', 'failed'])
 
 		# Additional creation code can be added inside the following tags
@@ -56,17 +59,29 @@ class SimpleTestSM(Behavior):
 
 
 		with _state_machine:
-			# x:122 y:78
+			# x:129 y:68
 			OperatableStateMachine.add('Announce_Execution_Start',
 										LogState(text="Execution is starting!", severity=Logger.REPORT_INFO),
-										transitions={'done': 'Move_Arm_Forward'},
+										transitions={'done': 'Move_Forward_and_Turn'},
 										autonomy={'done': Autonomy.Low})
 
-			# x:136 y:178
+			# x:139 y:421
 			OperatableStateMachine.add('Move_Arm_Forward',
 										ExecuteTrajectoryState(target_pose=front_pose_traj, time=traj_time),
 										transitions={'done': 'finished', 'failed': 'failed'},
 										autonomy={'done': Autonomy.Low, 'failed': Autonomy.Low})
+
+			# x:133 y:173
+			OperatableStateMachine.add('Move_Forward_and_Turn',
+										MoveBaseState(target_pose=target_pose),
+										transitions={'arrived': 'Move_to_Origin', 'failed': 'failed'},
+										autonomy={'arrived': Autonomy.Low, 'failed': Autonomy.Low})
+
+			# x:147 y:279
+			OperatableStateMachine.add('Move_to_Origin',
+										MoveBaseState(target_pose=origin_pose),
+										transitions={'arrived': 'Move_Arm_Forward', 'failed': 'failed'},
+										autonomy={'arrived': Autonomy.Low, 'failed': Autonomy.Low})
 
 
 		return _state_machine
