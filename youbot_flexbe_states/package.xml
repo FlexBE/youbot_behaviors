@@ -10,7 +10,11 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <run_depend>rospy</run_depend>
-
   <run_depend>flexbe_core</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>move_base_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>control_msgs</run_depend>
+  <run_depend>trajectory_msgs</run_depend>
 
 </package>
