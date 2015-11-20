@@ -95,3 +95,9 @@ class ExecuteTrajectoryState(EventState):
         except Exception as e:
             Logger.logwarn("Unable to send follow joint trajectory action goal:\n%s" % str(e))
             self._failed = True
+
+
+    def on_exit(self, userdata):
+        if not self._client.has_result(self._action_topic):
+            self._client.cancel(self._action_topic)
+            Logger.loginfo('Cancelled active action goal.')
