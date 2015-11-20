@@ -10,7 +10,7 @@ import roslib; roslib.load_manifest('youbot_behavior_simple_test')
 from flexbe_core import Behavior, Autonomy, OperatableStateMachine, Logger
 from flexbe_states.log_state import LogState
 from youbot_flexbe_states.execute_arm_trajectory_state import ExecuteTrajectoryState
-from youbot_flexbe_states.move_base_state import MoveBaseState
+from flexbe_navigation_states.move_base_state import MoveBaseState
 # Additional imports can be added inside the following tags
 # [MANUAL_IMPORT]
 
@@ -65,19 +65,19 @@ class SimpleTestSM(Behavior):
 										transitions={'done': 'Move_Forward_and_Turn'},
 										autonomy={'done': Autonomy.Low})
 
-			# x:139 y:421
+			# x:137 y:421
 			OperatableStateMachine.add('Move_Arm_Forward',
 										ExecuteTrajectoryState(target_pose=front_pose_traj, time=traj_time),
 										transitions={'done': 'finished', 'failed': 'failed'},
 										autonomy={'done': Autonomy.Low, 'failed': Autonomy.Low})
 
-			# x:133 y:173
+			# x:131 y:189
 			OperatableStateMachine.add('Move_Forward_and_Turn',
 										MoveBaseState(target_pose=target_pose),
 										transitions={'arrived': 'Move_to_Origin', 'failed': 'failed'},
 										autonomy={'arrived': Autonomy.Low, 'failed': Autonomy.Low})
 
-			# x:147 y:279
+			# x:143 y:298
 			OperatableStateMachine.add('Move_to_Origin',
 										MoveBaseState(target_pose=origin_pose),
 										transitions={'arrived': 'Move_Arm_Forward', 'failed': 'failed'},
