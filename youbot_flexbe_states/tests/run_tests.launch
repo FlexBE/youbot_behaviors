@@ -1,0 +1,14 @@
+<launch>
+    <arg name="path" value="$(find youbot_flexbe_states)/tests" />
+
+    <include file="$(find flexbe_testing)/launch/flexbe_testing.launch">
+        <arg name="compact_format" value="true" />
+        <arg name="testcases" value="
+
+            $(arg path)/gripper_command_state_import.test
+            $(arg path)/gripper_command_state_close.test
+            $(arg path)/gripper_command_state_open.test
+
+        " />
+    </include>
+</launch>

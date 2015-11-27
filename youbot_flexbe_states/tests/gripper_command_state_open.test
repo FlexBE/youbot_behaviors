@@ -1,0 +1,7 @@
+path: youbot_flexbe_states.gripper_command_state
+class: GripperCommandState
+
+params:
+    gripper_cmd: 1
+
+outcome: done
