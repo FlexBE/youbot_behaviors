@@ -11,7 +11,7 @@ from flexbe_core import Behavior, Autonomy, OperatableStateMachine, Logger
 from flexbe_states.log_state import LogState
 from youbot_flexbe_states.execute_arm_trajectory_state import ExecuteTrajectoryState
 from flexbe_navigation_states.move_base_state import MoveBaseState
-from youbot_flexbe_states.gripper_state import GripperCommandState
+from youbot_flexbe_states.gripper_command_state import GripperCommandState
 # Additional imports can be added inside the following tags
 # [MANUAL_IMPORT]
 from geometry_msgs.msg import Pose2D
