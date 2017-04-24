@@ -1,9 +1,9 @@
 <package>
-  <name>flexbe_behaviors</name>
+  <name>youbot_flexbe_behaviors</name>
   <version>1.0.0</version>
 
   <description>
-     flexbe_behaviors references all implemented behaviors.
+     youbot_flexbe_behaviors references all implemented behaviors.
   </description>
 
   <maintainer email="sm2296@cornell.edu">Spyros Maniatopoulos</maintainer>
@@ -15,8 +15,8 @@
 
   <run_depend>rospy</run_depend>
 
-  <!-- Add here all ROS packages that contain behaviors -->
-  <run_depend>behavior_example_behavior</run_depend>
-  <run_depend>youbot_behavior_simple_test</run_depend>
+  <export>
+    <flexbe_behaviors />
+  </export>
 
 </package>

@@ -2,7 +2,7 @@
 
 <behavior name="Simple Test">
 
-	<executable package_path="youbot_behavior_simple_test.simple_test_sm" class="SimpleTestSM" />
+	<executable package_path="youbot_flexbe_behaviors.simple_test_sm" class="SimpleTestSM" />
 	<tagstring>test</tagstring>
 	<author>Spyros Maniatopoulos</author>
 	<date>Tue Nov 17 2015</date>
