@@ -6,7 +6,6 @@
 # Only code inside the [MANUAL] tags will be kept.        #
 ###########################################################
 
-import roslib; roslib.load_manifest('youbot_behavior_simple_test')
 from flexbe_core import Behavior, Autonomy, OperatableStateMachine, Logger
 from flexbe_states.log_state import LogState
 from youbot_flexbe_states.execute_arm_trajectory_state import ExecuteTrajectoryState

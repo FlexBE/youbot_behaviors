@@ -6,7 +6,6 @@
 # Only code inside the [MANUAL] tags will be kept.        #
 ###########################################################
 
-import roslib; roslib.load_manifest('behavior_example_behavior')
 from flexbe_core import Behavior, Autonomy, OperatableStateMachine, Logger
 from flexbe_states.log_state import LogState
 from flexbe_states.wait_state import WaitState
